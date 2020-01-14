@@ -1,100 +1,196 @@
-create database distribuidor;
+package debercorreo;
 
-use distribuidor;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Rectangle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
-create table empresa(
-ide varchar (10),
-nombre varchar (50),
-telefono varchar (10),
-direccion varchar (100),
-primary key (ide));
+public class metodos extends JPanel {
 
-create table almacenes(
-ide varchar (10),
-nombre varchar (50),
-direccion varchar (100),
-telefono varchar (10),
-ubicacion varchar (50),
-primary key (ide));
+    JFrame frame = new JFrame("Facebook");
+    JPanel panelSuperior, panelInferior;
+    JLabel l1, l2, l3, l4, l5, l6, l7, l8, l9;
+    JTextField t = new JTextField(20);
+    GridBagConstraints c = new GridBagConstraints();
 
-create table tienda (
-ide varchar (10),
-nombre varchar (50),
-direccion varchar (100),
-telefono varchar (10),
-ideEmpresa varchar (10),
-primary key (ide),
-foreign key (ideEmpresa) references empresa (ide));
+    public void ejecutar() {
 
-create table producto (
-ide varchar (10),
-nombre varchar (50),
-descripcion varchar (100),
-precio float,
-cantidad varchar (100),
-peso varchar (100),
-primary key (ide));
+        frame.setSize(600, 500);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        panelInferior = new JPanel(new GridBagLayout());
+        frame.setContentPane(panelInferior);
+        GridBagConstraints c = new GridBagConstraints();
+        c.weightx = 2;
+        c.weighty = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
 
+        JLabel headerLabel = new JLabel("Correo Electronico o telefono ");
+        c.gridx = 0;
+        c.gridy = 0;
+        panelInferior.add(headerLabel, c);
 
+        JTextField Texto = new JTextField(10);
+        c.gridx = 0;
+        c.gridy = 1;
+        panelInferior.add(Texto, c);
 
-create table pedido (
-ide varchar (10),
-ideProducto varchar (10),
-Fpedido varchar (10),
-fentrega varchar (10),
-canPedido varchar (100),
-ideTienda varchar (10),
-ideAlmacen varchar (10),
-primary key (ide),
-foreign key (ideProducto) references producto (ide),
-foreign key (ideTienda) references tienda (ide),
-foreign key (ideAlmacen) references almacenes (ide));
+        JLabel headerLabel2 = new JLabel("Contraseña ");
+        c.gridx = 1;
+//        c.gridwidth = 3;
+        c.gridy = 0;
 
+        panelInferior.add(headerLabel2, c);
+        JTextField Texto1 = new JTextField(10);
+        c.gridx = 1;
+//        c.gridwidth = 3;
+        c.gridy = 1;
 
-create table canProducto (
-ideTienda varchar (10),
-ideProducto varchar (10),
-cantidad varchar (100),
-foreign key (ideProducto) references producto (ide),
-foreign key (ideTienda) references tienda (ide));
+        panelInferior.add(Texto1, c);
+        JButton entrar = new JButton("Entrar");
+        c.gridx = 2;
+        c.gridwidth = 3;
+        c.gridy = 1;
 
+        panelInferior.add(entrar, c);
 
-insert into empresa values ('501015','IMPERMEABILISA','0725820305','juan de salinas y sucre');
+        JLabel headerLabel23 = new JLabel("¿Has olvidado los datos de tu cuenta ");
+        c.gridx = 1;
+//        c.gridwidth = 3;
+        c.gridy = 3;
 
-insert into tienda values ('1055','pablo ventas','18 de noviembre','099875154','501015');
+        panelInferior.add(headerLabel23, c);
 
-insert into tienda values ('2012','tiasmas','las pitas','02102012','501015');
+        JLabel headerLabel3 = new JLabel("Registrarte");
+        c.gridx = 0;
+//        c.gridwidth = 3;
+        c.gridy = 4;
 
-insert into tienda values ('1305','microtienda','sauces norte','0991010102','501015');
+        panelInferior.add(headerLabel3, c);
 
-insert into almacenes values ('1155','la lojanita','cuba y catacocha','121015454','loja');
+        JLabel l2 = new JLabel("Es gratis y lo sera siempre");
+        c.gridx = 0;
+        c.gridy = 5;
+        panelInferior.add(l2, c);
+        GridBagConstraints d = new GridBagConstraints();
+        d.weightx = 2;
+        d.weighty = 1;
+        d.fill = GridBagConstraints.HORIZONTAL;
+        JTextField Txt = new JTextField("Nombre");
+                d.gridx = 0;
+        d.gridy = 6;
+        panelInferior.add(Txt, d);
 
-insert into almacenes values ('0010','lokotio','nueva granada','2210154888','cuenca');
+        JTextField Txt2 = new JTextField("Apellidos");
+        d.gridx = 1;
+        d.gridy = 6;
+        panelInferior.add(Txt2, d);
 
-insert into almacenes values ('2010','junto a ti','av.cuxibamba','0995515458','quito');
+        JTextField Txt3 = new JTextField("Numero de movil o correo electronico");
+        c.gridx = 0;
+        c.gridy = 8;
+        panelInferior.add(Txt3, c);
 
-insert into producto values ('LA12','alumband','1mx10m','94.00','12','37k');
+        JTextField Txt4 = new JTextField("Contraseña nueva");
+        c.gridx = 0;
+        c.gridy = 10;
+        panelInferior.add(Txt4, c);
 
-insert into producto values ('E222','pacth and plug','cementicio','12.00','10','2k');
+        JLabel l3 = new JLabel("Fecha de Nacimiento");
+        c.gridx = 0;
+        c.gridwidth = 3;
+        c.gridy = 11;
+        panelInferior.add(l3, c);
 
-insert into producto values ('5101C','xypex','impermeable','20.00','2','5k');
+        JTextField Txt6 = new JTextField("Dia");
 
-insert into pedido values ('1001','LA12','25-10-2019','29-10-2019','15','1055','0010');
+        d.gridx = 0;
+        d.gridy = 14;
+        panelInferior.add(Txt6, d);
+        JTextField Txt7 = new JTextField("Mes");
 
-insert into pedido values ('100','5101C','20-11-2019','25-11-2019','5','1305','1155');
+        c.gridx = 1;
+        c.gridy = 14;
+        panelInferior.add(Txt7, c);
+        JTextField Txt8 = new JTextField("año");
 
-insert into pedido values ('256','5101C','02-12-2019','05-12-2019','20','1055','1155');
+        d.gridx = 2;
+        d.gridy = 14;
+        panelInferior.add(Txt8, d);
+        JLabel l4 = new JLabel("¿Porque devo facilitar");
+        c.gridx = 3;
+//        c.gridwidth = 3;
+        c.gridy = 13;
+        panelInferior.add(l4, c);
+        JLabel l5 = new JLabel(" mi fecha de nacimiento? ");
+        d.gridx = 3;
+        d.gridwidth = 3;
+        d.gridy = 14;
+        panelInferior.add(l5, d);
+        GridBagConstraints a = new GridBagConstraints();
+        a.weightx = 2;
+        a.weighty = 1;
+        a.fill = GridBagConstraints.HORIZONTAL;
 
-insert into pedido values ('101','E222','20-11-2019','25-11-2019','5','1305','1155');
+        JButton hombre = new JButton("Hombre");
+        a.gridx = 1;
+        a.gridy = 15;
+        panelInferior.add(hombre, a);
 
-insert into pedido values ('105','5101C','04-12-2019','08-12-2019','26','2012','2010');
+        JButton Mujer = new JButton("Mujer");
+        a.gridx = 0;
+        a.gridy = 15;
+        panelInferior.add(Mujer, a);
 
-insert into canProducto values ('1055','LA12','100');
+        JLabel l6 = new JLabel("Al hacer clic en Registrarte, aceptas las Condiciones, la Política ");
+        d.gridx = 0;
+        d.gridwidth = 3;
+        d.gridy = 18;
+        panelInferior.add(l6, d);
+        JLabel l7 = new JLabel("de datos y la Política de cookies. Es posible que te enviemos");
+        d.gridx = 0;
+        d.gridwidth = 3;
+        d.gridy = 19;
+        panelInferior.add(l7, d);
+        JLabel l8 = new JLabel("notificaciones por SMS que podrás desactivar cuando quieras ");
+        d.gridx = 0;
+        d.gridwidth = 3;
+        d.gridy = 20;
+        panelInferior.add(l8, d);
 
-insert into canProducto values ('2012','E222','20');
+        JButton Registrarte = new JButton("Registrarte");
+        a.gridx = 1;
+        a.gridwidth = 3;
+        a.gridy = 21;
 
-insert into canProducto values ('1305','5101C','10');
+        panelInferior.add(Registrarte, a);
+        frame.setVisible(true);
 
+////        
+////        frame.pack();
+    }
 
+    public void orden() {
+        ejecutar();
 
+    }
+
+    public static void main(String[] args) {
+        metodos objeto = new metodos();
+        objeto.orden();
+
+    }
+
+}
 
